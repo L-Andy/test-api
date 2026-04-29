@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: wellness-connect-api
+   namespace: ${NAMESPACE}
+   labels:
+      app: wellness-connect-api
+      version: v1
+      component: api
+spec:
+   replicas: 2
+   revisionHistoryLimit: 3
+   strategy:
+      type: RollingUpdate
+      rollingUpdate:
+         maxSurge: 2
+         maxUnavailable: 1
+   selector:
+      matchLabels:
+         app: wellness-connect-api
+   template:
+      metadata:
+         labels:
+            app: wellness-connect-api
+            version: v1
+            component: api
+         annotations:
+            prometheus.io/scrape: "true"
+            prometheus.io/port: "8000"
+            prometheus.io/path: "/metrics"
+      spec:
+         containers:
+            - name: wellness-connect-api
+              image: ${ACR_LOGIN_SERVER}/${IMAGE_NAME}:latest
+              imagePullPolicy: Always
+              ports:
+                 - name: http
+                   containerPort: 8000
+                   protocol: TCP
+              env:
+                 - name: PORT
+                   value: "8000"
+                 - name: PYTHONUNBUFFERED
+                   value: "1"
+                 - name: DATABASE_URL
+                   valueFrom:
+                      secretKeyRef:
+                         name: wellness-connect-api-secrets
+                         key: database-url
+              
+              resources:
+                 requests:
+                    memory: "512Mi"
+                    cpu: "250m"
+                 limits:
+                    memory: "2Gi"
+                    cpu: "1000m"
+              
+              livenessProbe:
+                 httpGet:
+                    path: /healthz
+                    port: 8000
+                    scheme: HTTP
+                 initialDelaySeconds: 60
+                 periodSeconds: 30
+                 timeoutSeconds: 10
+                 successThreshold: 1
+                 failureThreshold: 3
+              
+              readinessProbe:
+                 httpGet:
+                    path: /healthz
+                    port: 8000
+                    scheme: HTTP
+                 initialDelaySeconds: 60
+                 periodSeconds: 10
+                 timeoutSeconds: 5
+                 successThreshold: 1
+                 failureThreshold: 3
+              
+              startupProbe:
+                 httpGet:
+                    path: /healthz
+                    port: 8000
+                    scheme: HTTP
+                 initialDelaySeconds: 45
+                 periodSeconds: 10
+                 timeoutSeconds: 5
+                 successThreshold: 1
+                 failureThreshold: 45
+              
+              volumeMounts:
+                 - name: tls-sync-volume
+                   mountPath: '/mnt/tls'
+                   readOnly: true
+         
+         volumes:
+            - name: tls-sync-volume
+              csi:
+                 driver: secrets-store.csi.k8s.io
+                 readOnly: true
+                 volumeAttributes:
+                    secretProviderClass: 'azrdkvapps-01'

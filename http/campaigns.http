@@ -1,0 +1,103 @@
+# @no-proxy
+
+### Campaign Endpoints
+# @baseUrl = https://wellness-api.acmdapp.iasp.tgscloud.net/api/v1
+@baseUrl = http://localhost:8000/api/v1
+@token = your_jwt_token_here
+@campaignId = 4d7574c0-ed49-478b-8c46-4787a806252e
+@groupId = 00000000-0000-0000-0000-000000000000
+
+### List All Campaigns
+GET {{baseUrl}}/campaigns?skip=0&limit=50
+
+### Get Single Campaign
+GET {{baseUrl}}/campaigns/{{campaignId}}
+Authorization: Bearer {{token}}
+
+### Create Campaign (Admin Only)
+POST {{baseUrl}}/campaigns
+Content-Type: application/json
+
+{
+  "title": "Run to first oil",
+  "objective": "Paying back to nature the drilled depth",
+  "start_date": "2026-04-01T00:00:00Z",
+  "end_date": "2026-08-30T23:59:59Z",
+  "banner_url": "https://example.com/banners/summer-challenge.jpg"
+}
+
+### Create Multi-Metric Campaign (Admin Only)
+POST {{baseUrl}}/campaigns
+Content-Type: application/json
+
+{
+  "title": "Q2 Wellness Marathon",
+  "objective": "Track steps, distance, and calories across all departments",
+  "start_date": "2026-04-01T00:00:00Z",
+  "end_date": "2026-06-30T23:59:59Z",
+  "banner_url": "https://example.com/banners/wellness-marathon.jpg"
+}
+
+### Create Individual Campaign (Admin Only)
+POST {{baseUrl}}/campaigns
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Personal Fitness Goals - April",
+  "objective": "Individual challenge - no teams required",
+  "start_date": "2026-04-01T00:00:00Z",
+  "end_date": "2026-04-30T23:59:59Z",
+  "banner_url": null
+}
+
+### Update Campaign (Admin Only)
+PATCH {{baseUrl}}/campaigns/{{campaignId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Updated: Summer Step Challenge 2026",
+  "objective": "Walk 12,000 steps daily - increased goal!",
+  "end_date": "2026-07-15T23:59:59Z",
+  "is_active": true
+}
+
+### Deactivate Campaign (Admin Only)
+PATCH {{baseUrl}}/campaigns/{{campaignId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "is_active": false
+}
+
+
+### ========== Campaign Sessions ==========
+
+### List Sessions for Campaign
+GET {{baseUrl}}/campaigns/{{campaignId}}/sessions
+
+### Create Session for Campaign
+POST {{baseUrl}}/campaigns/{{campaignId}}/sessions
+Content-Type: application/json
+
+{
+  "title": "Championship Finals",
+  "campaign_id": "{{campaignId}}",
+  "group_id": null,
+  "session_start_date": "2026-06-01T09:00:00Z",
+  "session_end_date": "2026-06-07T17:00:00Z"
+}
+
+### Create Session with Group
+POST {{baseUrl}}/campaigns/{{campaignId}}/sessions
+Content-Type: application/json
+
+{
+  "title": "Deep Drilling - 1000-2000m",
+  "campaign_id": "{{campaignId}}",
+  "group_id": null,
+  "session_start_date": "2026-06-08T09:00:00Z",
+  "session_end_date": "2026-06-14T17:00:00Z"
+}

@@ -1,0 +1,12 @@
+# @no-proxy
+
+### Health Check (Root)
+GET http://127.0.0.1:8000/health
+
+
+### Health Check (API v1)
+GET http://127.0.0.1:8000/api/v1/health
+
+
+### Health Check (localhost)
+GET http://localhost:8000/health

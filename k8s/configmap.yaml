@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+   name: wellness-connect-api-config
+   namespace: external-deployments
+   labels:
+      app: wellness-connect-api
+data:
+   enable-compression: 'true'
+   enable-caching: 'true'

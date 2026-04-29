@@ -1,0 +1,51 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+   name: wellness-connect-api-ingress
+   namespace: ${NAMESPACE}
+   labels:
+      app: wellness-connect-api
+   annotations:
+      kubernetes.io/ingress.class: nginx
+      
+      nginx.ingress.kubernetes.io/affinity: 'cookie'
+      nginx.ingress.kubernetes.io/affinity-mode: 'persistent'
+      nginx.ingress.kubernetes.io/session-cookie-name: 'wellness-connect-api-affinity'
+      nginx.ingress.kubernetes.io/session-cookie-max-age: '3600'
+      nginx.ingress.kubernetes.io/session-cookie-change-on-failure: 'true'
+      nginx.ingress.kubernetes.io/session-cookie-samesite: 'Lax'
+
+      nginx.ingress.kubernetes.io/proxy-request-buffering: 'off'
+      nginx.ingress.kubernetes.io/proxy-buffer-size: '16k'
+      nginx.ingress.kubernetes.io/proxy-buffers-number: '4'
+      nginx.ingress.kubernetes.io/proxy-body-size: '100m'
+      nginx.ingress.kubernetes.io/backend-protocol: 'HTTP'
+
+      nginx.ingress.kubernetes.io/proxy-buffering: 'off'
+      nginx.ingress.kubernetes.io/proxy-read-timeout: '3600'
+      nginx.ingress.kubernetes.io/proxy-send-timeout: '3600'
+      nginx.ingress.kubernetes.io/proxy-connect-timeout: '60'
+
+      nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+      nginx.ingress.kubernetes.io/force-ssl-redirect: 'true'
+      
+      nginx.ingress.kubernetes.io/limit-rps: '100'
+   
+
+spec:
+   ingressClassName: nginx
+   tls:
+      - hosts:
+           - wellness-connect-api.acmdapp.private.iasp.tgscloud.net
+        secretName: wellness-connect-api-tls-secret
+   rules:
+      - host: wellness-connect-api.acmdapp.private.iasp.tgscloud.net
+        http:
+           paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                   service:
+                      name: wellness-connect-api-service
+                      port:
+                         number: 80

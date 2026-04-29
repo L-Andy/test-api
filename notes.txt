@@ -1,0 +1,8 @@
+Mobile Application (27th April - 29th April)
+API and Datahub connection (4th May - 5th May)
+Deployments (7th May)
+Testing and resolving feedback 
+- Stablizing functionalities for the depoyed applications (14th May)
+- Issues resolutions (21st May)
+
+IMS - (End of June)

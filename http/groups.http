@@ -1,0 +1,86 @@
+# @no-proxy
+
+### Group Endpoints
+@baseUrl = http://localhost:8000/api/v1
+@userId = ad7a53cb-ee8c-4172-9118-0d0ec148c366
+@groupId = 5bb8c872-f87c-4486-a239-ca0d70698a2f
+
+
+### List All Groups
+GET {{baseUrl}}/groups
+
+
+### Get Specific Group
+GET {{baseUrl}}/groups/{{groupId}}
+
+
+### Create Group
+POST {{baseUrl}}/groups
+Content-Type: application/json
+
+{
+  "name": "NGR 10",
+  "group_leader_id": null
+}
+
+### Create More Sample Groups
+POST {{baseUrl}}/groups
+Content-Type: application/json
+
+{
+  "name": "Nigri",
+  "group_leader_id": null
+}
+
+###
+POST {{baseUrl}}/groups
+Content-Type: application/json
+
+{
+  "name": "Kasamene",
+  "group_leader_id": null
+}
+
+###
+POST {{baseUrl}}/groups
+Content-Type: application/json
+
+{
+  "name": "Kigogole",
+  "group_leader_id": null
+}
+
+###
+POST {{baseUrl}}/groups
+Content-Type: application/json
+
+{
+  "name": "Product Pioneers",
+  "group_leader_id": null
+}
+
+###
+POST {{baseUrl}}/groups
+Content-Type: application/json
+
+{
+  "name": "HR & Finance",
+  "group_leader_id": null
+}
+
+
+### Join Group
+POST {{baseUrl}}/groups/{{groupId}}/join?user_id={{userId}}
+
+
+### List Group Members
+GET {{baseUrl}}/groups/{{groupId}}/members
+
+
+### Set Group Leader
+PATCH {{baseUrl}}/groups/{{groupId}}/leader
+Content-Type: application/json
+
+{
+  "user_id": "{{userId}}"
+}

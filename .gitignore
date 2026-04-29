@@ -1,0 +1,42 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+
+# Environment files
+.env
+.env.local
+
+# REST Client local environment (contains tokens/secrets)
+http/environment.local.http
+
+# Database
+*.db
+*.sqlite
+
+# Logs
+*.log
+
+# Testing
+.pytest_cache/
+.coverage
+
+# mypy
+.mypy_cache/
+
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.ini
+*.cfg

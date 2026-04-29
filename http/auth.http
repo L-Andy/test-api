@@ -1,0 +1,160 @@
+# @no-proxy
+
+### Auth Endpoints
+@baseUrl = http://localhost:8000/api/v1
+@token = your_jwt_token_here
+@msToken = your_microsoft_access_token_here
+
+# User IDs (update after creating users and logging in)
+@aliceId = 00000000-0000-0000-0000-000000000001
+@bobId = 00000000-0000-0000-0000-000000000002
+@carolId = 00000000-0000-0000-0000-000000000003
+@davidId = 00000000-0000-0000-0000-000000000004
+@evaId = 00000000-0000-0000-0000-000000000005
+@frankId = 00000000-0000-0000-0000-000000000006
+@graceId = 00000000-0000-0000-0000-000000000007
+@henryId = 00000000-0000-0000-0000-000000000008
+@ivyId = 00000000-0000-0000-0000-000000000009
+@jackId = 00000000-0000-0000-0000-000000000010
+
+### Health Check
+GET {{baseUrl}}/../health
+
+### ========== Create 10 Sample Users ==========
+
+### Register User 1 - Alice Johnson (Engineering)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "alice.johnson@company.com",
+  "full_name": "Alice Johnson",
+  "password": "SecurePass123!"
+}
+========== Login Examples ==========
+
+### Login as Alice
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice.johnson@company.com",
+  "password": "SecurePass123!"
+}
+
+### Login as Bob
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob.smith@company.com",
+  "password": "SecurePass123!"
+}
+
+### Login as Carol
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "carol.white@company
+  "email": "bob.smith@company.com",
+  "full_name": "Bob Smith",
+  "password": "SecurePass123!"
+}
+
+### Register User 3 - Carol White (Marketing)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "carol.white@company.com",
+  "full_name": "Carol White",
+  "password": "SecurePass123!"
+}
+
+### Register User 4 - David Brown (Marketing)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "david.brown@company.com",
+  "full_name": "David Brown",
+  "password": "SecurePass123!"
+}
+
+### Register User 5 - Eva Martinez (Sales)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "eva.martinez@company.com",
+  "full_name": "Eva Martinez",
+  "password": "SecurePass123!"
+}
+
+### Register User 6 - Frank Lee (Sales)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "frank.lee@company.com",
+  "full_name": "Frank Lee",
+  "password": "SecurePass123!"
+}
+
+### Register User 7 - Grace Kim (HR)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "grace.kim@company.com",
+  "full_name": "Grace Kim",
+  "password": "SecurePass123!"
+}
+
+### Register User 8 - Henry Davis (Finance)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "henry.davis@company.com",
+  "full_name": "Henry Davis",
+  "password": "SecurePass123!"
+}
+
+### Register User 9 - Ivy Wilson (Product)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "ivy.wilson@company.com",
+  "full_name": "Ivy Wilson",
+  "password": "SecurePass123!"
+}
+
+### Register User 10 - Jack Taylor (Operations)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "jack.taylor@company.com",
+  "full_name": "Jack Taylor",
+  "password": "SecurePass123!"
+}
+
+### Login (Email/Password)
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "password": "SecurePass123!"
+}
+
+### SSO Login (Exchange Microsoft Token)
+POST {{baseUrl}}/auth/sso
+Content-Type: application/json
+
+{
+  "ms_access_token": "{{msToken}}"
+}

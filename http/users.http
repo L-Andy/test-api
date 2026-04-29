@@ -1,0 +1,73 @@
+# @no-proxy
+
+### User Endpoints
+@baseUrl = http://localhost:8000/api/v1
+@token = your_jwt_token_here
+@msToken = your_microsoft_access_token_here
+@userId = b9526d59-8660-4634-869f-52502b979a5a
+
+### Register with Entra ID (Recommended)
+# Flow: User logs in via Entra ID in frontend -> sends MS token here
+# Returns: User profile + backend JWT token
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+  "ms_access_token": "{{msToken}}"
+}
+
+### ========== User Profile Management ==========
+
+### Get Current User Profile (by ID)
+GET {{baseUrl}}/users/me?user_id={{userId}}
+
+### Update User Profile
+PATCH {{baseUrl}}/users/me?user_id={{userId}}
+Content-Type: application/json
+
+{
+  "full_name": "Alice Johnson Updated",
+  "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Alice"
+}
+
+### Update Bob's Profile with Avatar
+PATCH {{baseUrl}}/users/me?user_id={{userId}}
+Content-Type: application/json
+
+{
+  "full_name": "Bob Smith",
+  "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Bob"
+}
+
+### Update Carol's Profile with Avatar
+PATCH {{baseUrl}}/users/me?user_id={{userId}}
+Content-Type: application/json
+
+{
+  "full_name": "Carol White",
+  "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Carol"
+}
+
+### Update David's Profile
+PATCH {{baseUrl}}/users/me?user_id={{userId}}
+Content-Type: application/json
+
+{
+  "full_name": "David Brown",
+  "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=David"
+}
+
+### Update Eva's Profile
+PATCH {{baseUrl}}/users/me?user_id={{userId}}
+Content-Type: application/json
+
+{
+  "full_name": "Eva Martinez",
+  "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Eva"
+}
+
+### ========== Quick Login + Profile Workflow ==========
+# 1. Login to get token
+# 2. Copy the user id from response
+# 3. Update @userId variable above
+# 4. Use Get/Update profile endpoints
